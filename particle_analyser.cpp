@@ -37,7 +37,7 @@ void particle_analyser::output_voxels(std::ostream &out)
 	    for (int k = 0; k < array_size; ++k)
 	    {
 		std::vector<double> nums = data.at(i, j, k);
-		if (nums.size() >= 2)
+		if (nums.size() >= 1)
 		{
 		    out << get_corner(i, cube_size, voxel_size) << " "
 			<< get_corner(j, cube_size, voxel_size) << " " 

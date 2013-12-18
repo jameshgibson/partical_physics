@@ -9,19 +9,25 @@ int main()
     const double cube_size = 10.0;
     const double voxel_size = 0.05;
 
-    particle_analyser *pa = new particle_analyser(cube_size, voxel_size);
     std::ifstream infile("test.txt");
-    std::stringstream buff;
+    std::stringstream buffer;
 
-    pa->read_file(infile);
-    pa->output_voxels(buff);
+    particle_analyser pa(cube_size, voxel_size);
+	
+    pa.read_file(infile);
+    pa.output_voxels(buffer);
 
-    spatial_analyser *sa = new spatial_analyser(cube_size, voxel_size, 0.2);
-    sa->read_file(buff);
-    sa->run_analysis(std::cout, 4, 20);
+    const double z_split_width = 0.2;
 
-    delete pa;
-    delete sa;
+    spatial_analyser sa(cube_size, voxel_size, z_split_width);
+    sa.read_file(buffer);
+
+    // search: 4x4x4 voxel regions
+    const int region_size = 4; 
+    // only report region if more than this number of voxels are greater than the average
+    const int interesting_threshold = 20; 
+	
+    sa.run_analysis(std::cout, region_size, interesting_threshold);
 
     return 0;
 }

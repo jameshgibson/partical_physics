@@ -65,7 +65,7 @@ int spatial_analyser::count_above_avg_voxels(int region_size, int x, int y, int 
 		double angle = voxels.at(i, j, k);
 		if (angle > z_avg)
 		{
-		    buff << get_corner(i, cube_size, voxel_size) << " " 
+		    buff << "\t\t" << get_corner(i, cube_size, voxel_size) << " " 
 			 << get_corner(j, cube_size, voxel_size) << " " 
 			 << get_corner(k, cube_size, voxel_size) << " " 
 			 << voxel_size << " " 
@@ -90,10 +90,10 @@ void spatial_analyser::analyse_regions(int start_bin, double z_avg, int region_s
 		int count = count_above_avg_voxels(region_size, i, j, k, z_avg, buffer);
 		if (count >= interesting_threshold)
 		{
-		    out << "**interesting section at: " << get_corner(i, cube_size, voxel_size) << " " 
+		    out << "\t" << get_corner(i, cube_size, voxel_size) << " " 
 			<< get_corner(j, cube_size, voxel_size) << " " 
 			<< get_corner(k, cube_size, voxel_size) << " -> "  
-			<< region_size << "x" << region_size << " **" << std::endl; 
+			<< region_size << "x" << region_size << "x" << region_size << std::endl; 
 		    out << buffer.str();
 		}
 	    }
@@ -103,13 +103,13 @@ void spatial_analyser::analyse_regions(int start_bin, double z_avg, int region_s
 
 void spatial_analyser::run_analysis(std::ostream &out, int region_size, int interesting_threshold)
 {
-    for (int i = 0; i <= (array_size - strip_size); i += strip_size)
+    for (int z = 0; z <= (array_size - strip_size); z += strip_size)
     {
-	double z_avg = average_z_region(i);
+	double z_avg = average_z_region(z);
 	if (z_avg != NO_ANGLE)
 	{
-	    out << "----- z split  " << get_corner(i, cube_size, voxel_size) << ":  " << z_avg << " ------------" << std::endl;
-	    analyse_regions(i, z_avg, region_size, interesting_threshold, out);
+	    out << "z=" << get_corner(z, cube_size, voxel_size) << ",average=" << z_avg << "" << std::endl;
+	    analyse_regions(z, z_avg, region_size, interesting_threshold, out);
 	}
     }
 }
