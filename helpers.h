@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 
 int get_bin(double corner, double cube_size, double voxel_size);
 
@@ -14,4 +15,10 @@ typename numeric::value_type average(numeric numbers)
 		average += *it;
 	}
 	return (average / numbers.size());
+}
+
+template <class floating>
+bool almost_equals(floating lhs, floating rhs, double epsilon = 0.0000001)
+{
+	return std::fabs(lhs - rhs) < epsilon;
 }
