@@ -55,17 +55,24 @@ int main()
 	}
     }
 
-    //system("pause");
-
     return 0;
+}
+
+bool within_range(double lhs, double rhs)
+{
+    if (lhs > (rhs - 0.2) && lhs < (rhs + 0.4))
+    {
+	return true;
+    }
+    return false;
 }
 
 bool find_and_remove_point(std::list<point_3d> &points, double x, double y, double z)
 {
     for (std::list<point_3d>::iterator it = points.begin(); it != points.end(); ++it)
     {
-	if (almost_equals(x, it->x) && 
-	    almost_equals(y, it->y) &&
+	if (within_range(x, it->x) && 
+	    within_range(y, it->y) &&
 	    almost_equals(z, it->z))
 	{
 	    points.erase(it);
@@ -93,15 +100,15 @@ void get_expected_points(std::list<point_3d> &points)
     //points.push_back(point_3d(-2.2, -0.65, -0.7));
     //     points.push_back(point_3d(-0.1, -0.65, -0.7));
     //	points.push_back(point_3d(2.0, 0.45, -0.7));
-    // points.push_back(point_3d(-2.2, 0.45, 0.4));
-    //    points.push_back(point_3d(2, -0.1, 0.4));
+    points.push_back(point_3d(-2.2, 0.45, 0.4));
+    points.push_back(point_3d(2, -0.1, 0.4));
 
     // Run 2 / Run 7
     //points.push_back(point_3d(0, 0.65, -0.4));
     //points.push_back(point_3d(-0.1, -0.65, -0.4));
     //points.push_back(point_3d(2, -0.65, -0.4));
-    points.push_back(point_3d(-2.2, -0.65, 0.05));
-    points.push_back(point_3d(2.05, -0.35, 0.05));
+    //points.push_back(point_3d(-2.2, -0.65, 0.05));
+    //points.push_back(point_3d(2.05, -0.35, 0.05));
 
 
     // Run 3 / Run 8
@@ -149,7 +156,6 @@ void analyse_results(std::istream &results, const spatial_paramaters &params)
     if (points.empty())
     {
 	//std::cout << "found all the points with the following parameters" << std::endl;
-	std::cout << params.no_recons << " " << params.interesting_threshold << " "
-		  << params.avg_multiplier << " " << count <<std::endl;
+	std::cout << params.no_recons << " " << params.interesting_threshold << " " << params.avg_multiplier << " " << count << std::endl;
     }
 }
