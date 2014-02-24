@@ -22,3 +22,5 @@ bool almost_equals(floating lhs, floating rhs, double epsilon = 0.0000001)
 {
 	return std::fabs(lhs - rhs) < epsilon;
 }
+
+bool within_range(double lhs, double rhs);

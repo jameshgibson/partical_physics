@@ -9,10 +9,10 @@ EXE=sa
 all: $(SOURCES) $(EXE)
 
 $(EXE): $(OBJECTS) 
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
 .cpp.o:
-	$(CC) $(CFLAGS) $< -o $@
+$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	$(DEL) $(EXE) *.o
+$(DEL) $(EXE) *.o
