@@ -132,7 +132,7 @@ void analyse_results(std::istream &results, const spatial_paramaters &params)
 	
     while (results >> z_pos >> z_avg >> region_x >> region_y >> region_z >> voxel_x >> voxel_y >> voxel_z >> angle >> count)
     {
-	std::list<point_3d>::iterator p = find_point(points, region_x, region_y, region_z);
+	std::list<point_3d>::iterator p = find_point(points, voxel_x, voxel_y, voxel_z);
 	if (p != points.end())
 	{
 	    std::pair<std::set<point_3d>::iterator, bool> ret;
@@ -160,6 +160,6 @@ void analyse_results(std::istream &results, const spatial_paramaters &params)
     {
 	std::cout << "found all the points with the following parameters" << std::endl;
 	std::cout << params.no_recons << " " << params.interesting_threshold << " "
-		  << params.avg_multiplier << " " << errors.size() <<std::endl;
+		  << params.avg_multiplier << " " << errors.size() << std::endl;
     }
 }
